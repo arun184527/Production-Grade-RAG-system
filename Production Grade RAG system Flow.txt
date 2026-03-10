@@ -1,0 +1,28 @@
+Production-Grade RAG system
+Data Acquisition
+ - Download Dataset - This becomes the knowledge base for the RAG system.
+Dataset Exploration
+ - Dataset Structure - Understand dataset structure before processing.
+Data Cleaning
+ - Clean the Text Content - produce clean semantic text for embeddings.
+Document Chunking
+ - Split Articles into Chunks - ensure each chunk fits embedding model limits
+Tokenization
+ - Convert Text to Tokens - understand how models read text
+Embedding Generation
+ - Convert Chunks into Vectors - Represent semantic meaning of text numerically 
+Vector Database Storage
+ - Store Embeddings in Vector DB - enable fast similarity search
+Query Processing
+ - User asking the question 
+Similarity Search
+ - Retrieve Relevant Chunks - retrieve most relevant context
+Context Assembly
+ - Context Assembly is the step where the RAG system sends the retrieved information to the LLM so that the LLM can generate the final answer.
+LLM Answer Generation
+Source Attribution
+ - where the answer came from
+API Layer
+ - Allow applications to communicate with the RAG system
+User Interface
+ - Allow humans to interact with the system easily

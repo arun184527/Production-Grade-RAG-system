@@ -1,0 +1,7 @@
+data/
+datasets/
+vectorstore/
+embeddings/
+*.pdf
+venv/
+__pycache__/
