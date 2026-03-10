@@ -64,3 +64,47 @@ Tasks
  - remove noise
  - filter short articles
  - save cleaned data
+Cleaning Pipeline Implementation
+ - Remove citation markers
+ - Remove section headers
+ - Remove category tags
+ - Remove Wikipedia templates
+ - Remove wiki tables
+ - Remove HTML tags
+ - Remove URLs
+ - Convert wiki links to plain text
+ - Remove bullet formatting while keeping content
+ - Remove table formatting symbols
+ - Remove special wiki commands
+ - Normalize whitespace
+
+Dataset Validation
+After cleaning the dataset, a validation step was performed to ensure the preprocessing pipeline worked correctly
+ - rticle structure consistency
+ - removal of Wikipedia markup artifacts
+ - minimum text length requirements
+ - preservation of meaningful natural language content
+ 
+Document Chunking
+ Chunking means splitting long documents into smaller pieces so they can be processed by embedding models and stored efficiently in a vector database.
+ Chunking acts as the bridge between raw textual data and embedding generation.
+overlap - Overlap ensures that context is not lost between chunks.
+Why Chunking Is Required
+ Embedding models and language models have input size limitations. Long articles can exceed these limits or produce less accurate embeddings.
+Benefits of chunking 
+ - Improved Embedding Quality - Embedding models produce better vector representations when processing smaller, focused text segments.
+ - Better Retrieval Accuracy - Instead of retrieving an entire article, the system retrieves the most relevant chunk, improving answer accuracy.
+ - Efficient Vector Storage - Smaller chunks reduce memory overhead and make vector search more efficient.
+ - Context Preservation - Using overlapping chunks ensures that contextual information is not lost between segments.
+Chunking Workflow
+ - Load cleaned Wikipedia articles.
+ - Extract article metadata (ID and title).
+ - Split article text into words.
+ - Generate chunks of fixed size.
+ - Apply overlapping windows to preserve context.
+ - Store each chunk with metadata.
+ - Save chunked data into a new dataset.
+Result 
+ - Long documents are converted into smaller semantic units.
+ - Each chunk contains contextual information with overlap.
+ - The dataset becomes suitable for embedding generation and vector search.
