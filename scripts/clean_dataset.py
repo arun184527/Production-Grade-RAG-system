@@ -1,59 +1,43 @@
-import os
 import json
+import os
 import re
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-INPUT_FOLDER = os.path.join(BASE_DIR, "data", "archive", "enwiki20201020")
-OUTPUT_FOLDER = os.path.join(BASE_DIR, "data", "cleaned")
-os.makedirs(OUTPUT_FOLDER, exist_ok=True)
+INPUT_FILE = os.path.join(BASE_DIR, "data", "simple_wikipedia.jsonl")
+OUTPUT_FILE = os.path.join(BASE_DIR, "data", "clean_wikipedia.jsonl")
+print("Starting cleaning process...\n")
 def clean_text(text):
     if not isinstance(text, str):
         return ""
-    text = re.sub(r"\[\d+\]", " ", text)
-    text = re.sub(r"==.*?==", " ", text)
-    text = re.sub(r"Category:[^\n]+", " ", text)
-    text = re.sub(r"\{\{[\s\S]*?\}\}", " ", text)
-    text = re.sub(r"\{\|[\s\S]*?\|\}", " ", text)
-    text = re.sub(r"<.*?>", " ", text)
     text = re.sub(r"http\S+", " ", text)
-    text = re.sub(r"\[\[(?:[^|\]]*\|)?([^\]]+)\]\]", r"\1", text)
-    text = re.sub(r"^\*\s*", "", text, flags=re.MULTILINE)
-    text = re.sub(r"\|-|\||!", " ", text)
-    text = re.sub(r"__.*?__", " ", text)
+    text = re.sub(r"\[\[|\]\]", "", text)
+    text = re.sub(r"\n+", " ", text)
     text = re.sub(r"\s+", " ", text)
     return text.strip()
-print("\nStarting cleaning process...\n")
-total_articles = 0
-total_cleaned = 0
-for filename in os.listdir(INPUT_FOLDER):
-    if not filename.endswith(".json"):
-        continue
-    input_path = os.path.join(INPUT_FOLDER, filename)
-    output_path = os.path.join(OUTPUT_FOLDER, filename)
-    print("Processing:", filename)
-    with open(input_path, "r", encoding="utf-8") as f:
-        articles = json.load(f)
-    print("Articles found:", len(articles))
-    cleaned_articles = []
-    for article in articles:
-        total_articles += 1
-        article_id = article.get("id")
-        title = article.get("title", "")
-        text = article.get("text", "")
-        cleaned = clean_text(text)
-
-        if len(cleaned) < 200:
+processed = 0
+skipped = 0
+with open(INPUT_FILE, "r", encoding="utf-8") as infile, \
+     open(OUTPUT_FILE, "w", encoding="utf-8") as outfile:
+    for line in infile:
+        try:
+            article = json.loads(line)
+            text = article.get("text", "")
+            cleaned_text = clean_text(text)
+            if len(cleaned_text) < 50:
+                skipped += 1
+                continue
+            cleaned_article = {
+                "id": article.get("id"),
+                "title": article.get("title"),
+                "text": cleaned_text
+            }
+            outfile.write(json.dumps(cleaned_article, ensure_ascii=False) + "\n")
+            processed += 1
+            if processed % 1000 == 0:
+                print("Processed:", processed)
+        except Exception:
+            skipped += 1
             continue
-        cleaned_articles.append({
-            "id": article_id,
-            "title": title,
-            "text": cleaned
-        })
-        total_cleaned += 1
-    print("Cleaned articles:", len(cleaned_articles))
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(cleaned_articles, f, indent=2)
-    print("Saved cleaned file\n")
-
-print("\nCleaning completed.")
-print("Total articles processed:", total_articles)
-print("Total cleaned articles:", total_cleaned)
+print("\nCleaning finished")
+print("Total cleaned:", processed)
+print("Skipped:", skipped)
+print("Saved to:", OUTPUT_FILE)

@@ -1,13 +1,24 @@
 i want to bulid the Production-Grade RAG module
 
 Data Acquisition is the First Step
-where i downloaded the zip file from "Plain Text Wikipedia 2020-11" from Wikipedia
-the file contains of 650+ file that are in format of "JSON" 
-the JSON file contains "id number", "Text","Titel".
+where i downloaded the dataset from "https://huggingface.co/datasets/pszemraj/simple_wikipedia"
+the file name is simple_wikipedia file that is in format of "JSONl" 
+the JSONl file contains "id number", "Url", Text","Titel".
  - Text is Main contains used for tokenization, embeddings, and retrieval.
  - Titel is Used as metadata this is helps for showing source of the answer
+ - URL is Direct link to the original Wikipedia page 
  - id number that is the Unique identifier for the article
 this is the our base data for the Production Grade RAG Model
+Data Format 
+ - Each line represents one independent JSON object
+ - The dataset can be processed line-by-line without loading the entire file into memory
+ {
+"id": "796322",
+"url": "https://simple.wikipedia.org/wiki/Vitória%20F.C.",
+"title": "Vitória F.C.",
+"text": "Vitoria Futebol Clube is a Portuguese sports club..."
+}
+here this file we can't download 
 
 
 Dataset Exploration is the Next Step 
@@ -108,3 +119,8 @@ Result
  - Long documents are converted into smaller semantic units.
  - Each chunk contains contextual information with overlap.
  - The dataset becomes suitable for embedding generation and vector search.
+
+What Is an Embedding
+ An embedding is a numerical vector representation of text
+here i used the Sentence Transformers for Embedding
+  
