@@ -18,26 +18,15 @@ Data Format
 "title": "Vitória F.C.",
 "text": "Vitoria Futebol Clube is a Portuguese sports club..."
 }
-here this file we can't download 
-
 
 Dataset Exploration is the Next Step 
-Where i created a Python script "explore_dataset.py"
+Where i created a Python script "explore_dataset.py" to open the file 
+Dataset path: d:\Git_projects\Production_RAG_Project\scripts\..\data
+Opening file: d:\Git_projects\Production_RAG_Project\scripts\..\data\simple_wikipedia.jsonl
+Preview of dataset:
+ {"id": "796322", "url": "https://simple.wikipedia.org/wiki/Vit%C3%B3ria%20F.C.", "title": "Vitória F.C.", "text": "Vitoria Futebol Clube is a Portuguese sports club from the city of Setubal. Popularly known as Vitoria de Setubal (), the club was born under the original name Sport Victoria from the ashes of the small Bonfim Foot-Ball Club.\nReferences\n20th-century establishments in Portugal\n1910 establishments in Europe\nPortuguese football clubs"}
+ {"id": "464811", "url": "https://simple.wikipedia.org/wiki/Pope%20Shenouda%20III%20of%20Alexandria", "title": "Pope Shenouda III of Alexandria", "text": "Pope Shenouda III (3 August 1923 - 17 March 2012) was the 117th Pope of Alexandria & Patriarch of the See of St. Mark. His papacy lasted for forty years, four months, and four days from 14 November 1971 until his death on 17 March 2012.\nPope Shenouda III died on 17 March 2012 in Cairo, Egypt from respiratory and kidney failure, aged 88.\nReferences\nOther websites\nOfficial website\nPope Shenouda III - Coptic Orthodox Church Network: Biography, Online Books, and Audio Sermons\nSome Articles by Pope Shenouda III in English\nMore information about the life of Pope Shenouda III - from Saint Takla Haymanout the Ethiopian Church, Alexandria, Egypt\nCommon declaration of Pope Shenouda III and Pope Paul VI (1973)\nPope Shenouda III's story and life in Arabic and English\nPope Shenouda III's Life\n1923 births\n2012 deaths\nCopts\nDeaths from renal failure\nDeaths from respiratory failure\nPatriarchs"}
 
-Example file opened
-Opening file: 00c2bfc7-57db-496e-9d5c-d62f8d8119e3.json
-Total articles in this file: 9982
-
-Inspecting one article
-ID: 7751000
-Title: M-137 (Michigan highway)
-Text preview: M-137 was a state trunkline highway in the US state of Michigan that served as a spur route to the Interlochen Center for the Arts and Interlochen State Park. It started south of the park and ran nort
-
-Article statistics
-Number of articles: 9982
-Average text length: 4007.775896613905
-Longest article: 194969
-Shortest article: 1
 
 Data Cleaning
 now next step is the present data cleaning here i thought the data is already present in the from of json data why i should clean it. it is well fromanted data
@@ -68,7 +57,16 @@ What are the Uncleaned data that Present in that JSON File
  - __INDEX__ - Category Index Commands
  - *** - Repeated Formatting Characters
 
-Created a Python script "clean_dataset.py"
+To prepare the dataset for the Retrieval-Augmented Generation system, a data cleaning pipeline was implemented.
+Instead of writing the cleaning logic directly inside the project script, the preprocessing functionality was designed as a reusable Python library.
+This approach improves:
+ - code reusability
+ - modular design
+ - maintainability
+ - scalability across multiple AI/ML projects
+The project script simply calls the cleaning library, while the library itself contains the full preprocessing logic.
+Cleaning Library - libraries/data_cleaning/cleaner.py
+for cleaning Created a Python script "clean_dataset.py"
 Tasks
  - load JSON files
  - clean text
@@ -119,8 +117,35 @@ Result
  - Long documents are converted into smaller semantic units.
  - Each chunk contains contextual information with overlap.
  - The dataset becomes suitable for embedding generation and vector search.
+To maintain modularity and code reusability, the chunking functionality was implemented as a reusable Python library rather than embedding the logic directly inside the project script.
+This design ensures that the chunking system can be reused across different datasets and AI pipelines.
+Chunking Library - libraries/chunking/chunker.py 
+for chunking Created a Python script "chunk_dataset.py"
+chunk_size = 500
+This size is chosen to balance:
+ - semantic completeness
+ - embedding efficiency
+ - retrieval accuracy
+Overlap = 50
+The overlapping region ensures that context is preserved across chunks
+Each chunk contains:
+ - chunk_id – unique identifier for the chunk
+ - title – article title used as metadata
+ - text – the chunked portion of the article text
 
-What Is an Embedding
- An embedding is a numerical vector representation of text
-here i used the Sentence Transformers for Embedding
-  
+Embedding Generation 
+After splitting the dataset into smaller text chunks, the next step in the Retrieval-Augmented Generation (RAG) pipeline is embedding generation.
+Embedding models convert text into dense numerical vectors that capture the semantic meaning of the content. These vectors allow the system to perform semantic search, enabling the retrieval of relevant information based on meaning rather than exact keyword matching.
+In this project, each chunk of text is transformed into an embedding vector and stored for later use in the vector database.
+To maintain modularity and code reuse, the embedding functionality is implemented as a reusable Python library.
+Embedding Library - libraries/embedding/embedder.py
+for Embedding Created a python script "generate_embeddings.py"
+Embedding Model
+The project uses the following embedding model
+ - "sentence-transformers/all-MiniLM-L6-v2"
+This model was chosen because
+ - produces high-quality semantic embeddings
+ - is lightweight and fast
+ - is widely used in production RAG systems
+ - works well for semantic search tasks
+The model converts each text chunk into a 384-dimensional vector representation

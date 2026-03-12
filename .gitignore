@@ -5,3 +5,4 @@ embeddings/
 *.pdf
 venv/
 __pycache__/
+embeddings/
