@@ -6,3 +6,4 @@ embeddings/
 venv/
 __pycache__/
 embeddings/
+vectordb/

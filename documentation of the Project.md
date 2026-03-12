@@ -140,6 +140,9 @@ In this project, each chunk of text is transformed into an embedding vector and 
 To maintain modularity and code reuse, the embedding functionality is implemented as a reusable Python library.
 Embedding Library - libraries/embedding/embedder.py
 for Embedding Created a python script "generate_embeddings.py"
+Why Embeddings Are Important 
+Embedding vectors allow the system to perform semantic search instead of keyword-based search
+
 Embedding Model
 The project uses the following embedding model
  - "sentence-transformers/all-MiniLM-L6-v2"
@@ -149,3 +152,32 @@ This model was chosen because
  - is widely used in production RAG systems
  - works well for semantic search tasks
 The model converts each text chunk into a 384-dimensional vector representation
+Embedding Generation Process
+ - Load the chunked dataset (wiki_chunks.jsonl)
+ - Read each chunk line-by-line
+ - Extract the text content
+ - Generate an embedding vector using the embedding model
+ - Attach the vector to the chunk metadata
+ - Save the result to a new JSONL dataset
+This approach ensures the pipeline can handle large datasets efficiently without exceeding memory limits
+The embedding model converts the query into a vector
+The system then searches the vector database to find chunks with similar vector representations, which likely contain the relevant information.
+This allows the system to retrieve relevant knowledge even if the exact words in the query do not appear in the text.
+Benefits of Using Embeddings
+ - Enables semantic similarity search
+ - Improves retrieval accuracy
+ - Reduces dependency on keyword matching
+ - Handles paraphrased queries effectively
+ - Provides better context for LLM responses
+
+Vector Database 
+After generating embeddings for all text chunks, the next step is to store these embeddings in a vector database.
+A vector database allows the system to perform fast similarity search between a user query and the stored embeddings.
+Instead of scanning every document manually, the vector database finds the most similar vectors efficiently.
+In this project i used 
+FAISS - Facebook AI Similarity Search
+ - extremely fast
+ - memory efficient
+ - optimized for high-dimensional vector search
+ - scalable for millions of embeddings
+
