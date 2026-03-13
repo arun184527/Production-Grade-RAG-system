@@ -10,4 +10,3 @@ chunker = TextChunker(
     overlap=50
 )
 chunker.chunk_jsonl(INPUT_FILE, OUTPUT_FILE)
-

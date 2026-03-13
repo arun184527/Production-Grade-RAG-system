@@ -181,3 +181,56 @@ FAISS - Facebook AI Similarity Search
  - optimized for high-dimensional vector search
  - scalable for millions of embeddings
 
+Retriever Module
+After building the vector database, the next critical component in the RAG system is the Retriever. The retriever is responsible for searching the vector database and selecting the most relevant information for a given user query.
+In a Retrieval-Augmented Generation (RAG) system, the language model does not directly search through the entire dataset. Instead, the retriever finds the most relevant pieces of information from the knowledge base and provides them to the language model as context. This significantly improves answer accuracy and reduces hallucination.   
+Role of the Retriever in the RAG Pipeline
+The retriever opeates in the query pipeline, which begins when a user asks a question.
+flow:
+ User Question
+ Query Embedding
+ Vector Search (FAISS)
+ Top-K Relevant Chunks
+ Prompt Builder
+ LLM Generates Answer
+The retriever sits between the user query and the language model, acting as the system that retrieves the most relevant information from the knowledge base.
+How the Retriever Works
+ - User Query Input - The process starts when the user asks a question.
+                    Example - Who invented the telephone?
+ - Query Embedding - The retriever converts the user question into a vector using the same embedding model that was used during document indexing
+                    Example - Text → Embedding Vector
+ This ensures the query and stored documents are represented in the same vector space
+ - Vector Similarity Search - The query vector is then searched against the vector database using FAISS
+ FAISS calculates similarity between the query vector and stored document vectors using a distance metric (usually cosine similarity or Euclidean distance)
+ The system returns the Top-K most similar document chunks
+ - Retrieve Relevant Chunks - The retriever returns the corresponding text chunks and metadata (such as title or source URL) for the most relevant results.
+ Example retrieved context
+ Title: Telephone
+ Text: Alexander Graham Bell invented the telephone in 1876
+ These retrieved chunks become the context for the language model
+Why the Retriever is Important
+The retriever is one of the most important components in a RAG system because it determines what information the language model receives.
+Without a retriever
+ - The language model would rely only on its training data
+ - It may produce hallucinated or outdated answers
+ - It cannot access external knowledge sources
+With a retriever
+ - The system can search large knowledge bases
+ - Answers are grounded in real documents
+ - Hallucination is reduced
+ - Responses become more accurate and reliable
+Benefits of Using a Retriever
+ - Enables semantic search across large document collections
+ - Improves factual accuracy of generated answers
+ - Allows the system to scale to large datasets
+ - Keeps the language model focused on relevant information
+ - Supports domain-specific knowledge retrieval
+Retriever Output Example
+ Input Query
+Who invented the telephone?
+Retrieved Results
+ - Alexander Graham Bell invented the telephone in 1876
+ - The telephone was patented by Alexander Graham Bell
+ - Bell's invention revolutionized communication technology
+These retrieved chunks are passed to the language model, which then generates the final answer
+The retriever acts as the information retrieval engine of the RAG system. It efficiently searches the vector database, identifies the most relevant knowledge, and provides it to the language model as context. This step ensures that the generated answers are grounded in the underlying knowledge base rather than relying only on the model's internal knowledge.
