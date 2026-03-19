@@ -1,35 +1,14 @@
 i want to bulid the Production-Grade RAG module
+Data Acquisition
+i have created 8 Documents - chunking_file.pdf, Embedding_file.pdf, Vectordb_file.pdf, LLM_1.txt, LLM_2.txt, RAG_1.txt, RAG_2.txt, transformer.json
+here i have created 3 pdf files, 2 text files and 1 json files.
+these file are the base dataset of the RAG.
 
-Data Acquisition is the First Step
-where i downloaded the dataset from "https://huggingface.co/datasets/pszemraj/simple_wikipedia"
-the file name is simple_wikipedia file that is in format of "JSONl" 
-the JSONl file contains "id number", "Url", Text","Titel".
- - Text is Main contains used for tokenization, embeddings, and retrieval.
- - Titel is Used as metadata this is helps for showing source of the answer
- - URL is Direct link to the original Wikipedia page 
- - id number that is the Unique identifier for the article
-this is the our base data for the Production Grade RAG Model
-Data Format 
- - Each line represents one independent JSON object
- - The dataset can be processed line-by-line without loading the entire file into memory
- {
-"id": "796322",
-"url": "https://simple.wikipedia.org/wiki/Vitória%20F.C.",
-"title": "Vitória F.C.",
-"text": "Vitoria Futebol Clube is a Portuguese sports club..."
-}
-
-Dataset Exploration is the Next Step 
-Where i created a Python script "explore_dataset.py" to open the file 
-Dataset path: d:\Git_projects\Production_RAG_Project\scripts\..\data
-Opening file: d:\Git_projects\Production_RAG_Project\scripts\..\data\simple_wikipedia.jsonl
-Preview of dataset:
- {"id": "796322", "url": "https://simple.wikipedia.org/wiki/Vit%C3%B3ria%20F.C.", "title": "Vitória F.C.", "text": "Vitoria Futebol Clube is a Portuguese sports club from the city of Setubal. Popularly known as Vitoria de Setubal (), the club was born under the original name Sport Victoria from the ashes of the small Bonfim Foot-Ball Club.\nReferences\n20th-century establishments in Portugal\n1910 establishments in Europe\nPortuguese football clubs"}
- {"id": "464811", "url": "https://simple.wikipedia.org/wiki/Pope%20Shenouda%20III%20of%20Alexandria", "title": "Pope Shenouda III of Alexandria", "text": "Pope Shenouda III (3 August 1923 - 17 March 2012) was the 117th Pope of Alexandria & Patriarch of the See of St. Mark. His papacy lasted for forty years, four months, and four days from 14 November 1971 until his death on 17 March 2012.\nPope Shenouda III died on 17 March 2012 in Cairo, Egypt from respiratory and kidney failure, aged 88.\nReferences\nOther websites\nOfficial website\nPope Shenouda III - Coptic Orthodox Church Network: Biography, Online Books, and Audio Sermons\nSome Articles by Pope Shenouda III in English\nMore information about the life of Pope Shenouda III - from Saint Takla Haymanout the Ethiopian Church, Alexandria, Egypt\nCommon declaration of Pope Shenouda III and Pope Paul VI (1973)\nPope Shenouda III's story and life in Arabic and English\nPope Shenouda III's Life\n1923 births\n2012 deaths\nCopts\nDeaths from renal failure\nDeaths from respiratory failure\nPatriarchs"}
-
+Dataset Exploration
+Here i have created load_document.py program that to convert my files to required dataset structure that is .jsonl structure here i convert my all files to .jsonl file and stored in the raw_txt.jsonl.
 
 Data Cleaning
-now next step is the present data cleaning here i thought the data is already present in the from of json data why i should clean it. it is well fromanted data
+now next step is the present data cleaning here i thought the data is already present in the from of jsonl data why i should clean it. it is well fromanted data
 here comes the improts of the clean data and the uncleaned data 
 Advantage of clean data is 
  - Improve Data Quality - Cleaning ensures that the text contains only meaningful content, which improves the overall dataset quality
@@ -56,7 +35,6 @@ What are the Uncleaned data that Present in that JSON File
  - ==Further reading== - Navigation Sections
  - __INDEX__ - Category Index Commands
  - *** - Repeated Formatting Characters
-
 To prepare the dataset for the Retrieval-Augmented Generation system, a data cleaning pipeline was implemented.
 Instead of writing the cleaning logic directly inside the project script, the preprocessing functionality was designed as a reusable Python library.
 This approach improves:
@@ -65,7 +43,6 @@ This approach improves:
  - maintainability
  - scalability across multiple AI/ML projects
 The project script simply calls the cleaning library, while the library itself contains the full preprocessing logic.
-Cleaning Library - libraries/data_cleaning/cleaner.py
 for cleaning Created a Python script "clean_dataset.py"
 Tasks
  - load JSON files
@@ -86,6 +63,8 @@ Cleaning Pipeline Implementation
  - Remove table formatting symbols
  - Remove special wiki commands
  - Normalize whitespace
+Here i have created clean_dataset.py program to clean the Noisy data present in the raw_text.jsonl file and store that data in the clean 
+
 
 Dataset Validation
 After cleaning the dataset, a validation step was performed to ensure the preprocessing pipeline worked correctly
@@ -107,7 +86,7 @@ Benefits of chunking
  - Context Preservation - Using overlapping chunks ensures that contextual information is not lost between segments.
 Chunking Workflow
  - Load cleaned Wikipedia articles.
- - Extract article metadata (ID and title).
+ - Extract article metadata.
  - Split article text into words.
  - Generate chunks of fixed size.
  - Apply overlapping windows to preserve context.
@@ -121,12 +100,12 @@ To maintain modularity and code reusability, the chunking functionality was impl
 This design ensures that the chunking system can be reused across different datasets and AI pipelines.
 Chunking Library - libraries/chunking/chunker.py 
 for chunking Created a Python script "chunk_dataset.py"
-chunk_size = 500
+chunk_size = 5
 This size is chosen to balance:
  - semantic completeness
  - embedding efficiency
  - retrieval accuracy
-Overlap = 50
+Overlap = 1
 The overlapping region ensures that context is preserved across chunks
 Each chunk contains:
  - chunk_id – unique identifier for the chunk
@@ -139,7 +118,7 @@ Embedding models convert text into dense numerical vectors that capture the sema
 In this project, each chunk of text is transformed into an embedding vector and stored for later use in the vector database.
 To maintain modularity and code reuse, the embedding functionality is implemented as a reusable Python library.
 Embedding Library - libraries/embedding/embedder.py
-for Embedding Created a python script "generate_embeddings.py"
+for Embedding Created a python script "embeddings_datset.py"
 Why Embeddings Are Important 
 Embedding vectors allow the system to perform semantic search instead of keyword-based search
 
@@ -204,10 +183,6 @@ How the Retriever Works
  FAISS calculates similarity between the query vector and stored document vectors using a distance metric (usually cosine similarity or Euclidean distance)
  The system returns the Top-K most similar document chunks
  - Retrieve Relevant Chunks - The retriever returns the corresponding text chunks and metadata (such as title or source URL) for the most relevant results.
- Example retrieved context
- Title: Telephone
- Text: Alexander Graham Bell invented the telephone in 1876
- These retrieved chunks become the context for the language model
 Why the Retriever is Important
 The retriever is one of the most important components in a RAG system because it determines what information the language model receives.
 Without a retriever
@@ -225,15 +200,7 @@ Benefits of Using a Retriever
  - Allows the system to scale to large datasets
  - Keeps the language model focused on relevant information
  - Supports domain-specific knowledge retrieval
-Retriever Output Example
- Input Query
-Who invented the telephone?
-Retrieved Results
- - Alexander Graham Bell invented the telephone in 1876
- - The telephone was patented by Alexander Graham Bell
- - Bell's invention revolutionized communication technology
-These retrieved chunks are passed to the language model, which then generates the final answer
-The retriever acts as the information retrieval engine of the RAG system. It efficiently searches the vector database, identifies the most relevant knowledge, and provides it to the language model as context. This step ensures that the generated answers are grounded in the underlying knowledge base rather than relying only on the model's internal knowledge.
+For the Retriever i have created retrieval.py
 
 Prompt Template
 Why Prompt Templates Are Important?
@@ -266,3 +233,6 @@ The Prompt Builder performs the following tasks
  - Constructs a structured prompt
  - Returns the final prompt string
 The Prompt Builder is a key component in the RAG system that transforms retrieved knowledge into a structured prompt for the language model. By enforcing a consistent prompt format, it ensures that the LLM produces accurate and context-grounded responses.
+For the Prompt i have created prompt_builder
+
+
