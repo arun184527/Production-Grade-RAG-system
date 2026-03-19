@@ -234,3 +234,35 @@ Retrieved Results
  - Bell's invention revolutionized communication technology
 These retrieved chunks are passed to the language model, which then generates the final answer
 The retriever acts as the information retrieval engine of the RAG system. It efficiently searches the vector database, identifies the most relevant knowledge, and provides it to the language model as context. This step ensures that the generated answers are grounded in the underlying knowledge base rather than relying only on the model's internal knowledge.
+
+Prompt Template
+Why Prompt Templates Are Important?
+ - read retrieved documents
+ - understand the user question 
+ - answer only using the retrieved knowledge
+Without a good prompt, the model may
+ - hallucinate
+ - ignore context
+ - generate wrong answers
+
+Prompt Builder
+ - The Prompt Builder module is responsible for constructing the final prompt that is sent to the Large Language Model (LLM).
+ - In a Retrieval-Augmented Generation (RAG) system, the retriever returns relevant document chunks from the knowledge base. However, these raw documents cannot be directly sent to the model without proper structure.
+ - The Prompt Builder combines the user query and the retrieved context into a well-formatted prompt so that the LLM can generate an accurate and grounded answer
+Why the Prompt Builder Is Important
+Large Language Models generate responses based on the input prompt. If the prompt is poorly structured, the model may
+ - Ignore the retrieved context
+ - Generate hallucinated answers
+ - Provide incomplete responses
+A properly designed prompt ensures that the model
+ - Uses the retrieved knowledge as the source of truth
+ - Produces accurate and context-aware answers
+ - Avoids hallucination
+For this reason, prompt engineering is a critical component of Production-Grade RAG systems
+The Prompt Builder performs the following tasks
+ - Accepts the user query
+ - Accepts retrieved document chunks
+ - Formats the retrieved documents as contextual knowledge
+ - Constructs a structured prompt
+ - Returns the final prompt string
+The Prompt Builder is a key component in the RAG system that transforms retrieved knowledge into a structured prompt for the language model. By enforcing a consistent prompt format, it ensures that the LLM produces accurate and context-grounded responses.
