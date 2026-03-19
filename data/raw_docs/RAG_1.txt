@@ -1,0 +1,100 @@
+
+What is RAG? – A system that combines retrieval of external data with LLM generation to produce accurate, grounded responses.
+
+Why RAG is needed? – LLMs have limited knowledge and can hallucinate; RAG adds real data.
+
+What does RAG solve? – Reduces hallucination and enables use of private or updated data.
+
+What are core components of RAG? – Data ingestion, chunking, embeddings, vector DB, retrieval, and generation.
+
+What is retrieval in RAG? – Fetching relevant documents using similarity search.
+
+What is generation in RAG? – LLM generating answer using retrieved context.
+
+What is knowledge base in RAG? – Collection of documents stored for retrieval.
+
+What is grounding in RAG? – Ensuring answers are based on retrieved data.
+
+What is hallucination? – LLM generating incorrect but confident answers.
+
+How RAG reduces hallucination? – By providing real context from data.
+
+What is data ingestion? – Loading raw data (PDF, text, JSON) into pipeline.
+
+Why data cleaning needed? – Removes noise and improves embedding quality.
+
+What is preprocessing? – Formatting and preparing data before chunking.
+
+What formats used in RAG? – PDFs, TXT, JSON, HTML, databases.
+
+What is document loader? – Tool to read and extract data (e.g., LangChain loaders).
+
+What is text extraction? – Converting PDF or files into plain text.
+
+What is noisy data? – Irrelevant or messy content affecting retrieval.
+
+Why remove special characters? – Improves embedding consistency.
+
+What is deduplication? – Removing repeated data.
+
+Why structured data helpful? – Easier to chunk and retrieve.
+
+What is chunking? – Splitting documents into smaller parts.
+
+Why chunking important? – Improves retrieval precision.
+
+What is chunk size? – Number of tokens per chunk.
+
+What is overlap? – Shared content between chunks.
+
+Why overlap used? – Maintains context continuity.
+
+What is semantic chunking? – Splitting based on meaning.
+
+What is fixed chunking? – Equal size splitting.
+
+What is recursive chunking? – Hierarchical splitting method.
+
+What is chunk metadata? – Info like source, page, section.
+
+What is chunk quality? – How meaningful and self-contained chunk is.
+
+What are embeddings? – Vector representations of text.
+
+Why embeddings needed? – Enable semantic similarity search.
+
+What is embedding model? – Converts text into vectors.
+
+What is vector dimension? – Size of embedding vector.
+
+What is semantic similarity? – Similar meaning = similar vectors.
+
+What is cosine similarity? – Measures angle similarity between vectors.
+
+Why normalize embeddings? – Improves comparison accuracy.
+
+What is sentence embedding? – Vector of full sentence.
+
+What is document embedding? – Vector of full document.
+
+What is multilingual embedding? – Supports multiple languages.
+
+What is vector DB? – Stores embeddings for fast retrieval.
+
+Why vector DB used? – Enables semantic search.
+
+What is FAISS? – Local vector search library.
+
+What is Pinecone? – Managed cloud vector DB.
+
+What is indexing? – Organizing vectors for fast search.
+
+What is ANN? – Approximate nearest neighbor search.
+
+Why ANN used? – Faster search with large data.
+
+What is top-k retrieval? – Getting most similar k results.
+
+What is metadata filtering? – Filtering results using extra info.
+
+What is hybrid search? – Combining keyword + vector search.

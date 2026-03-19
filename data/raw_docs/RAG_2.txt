@@ -1,0 +1,139 @@
+What is retriever? – Component that fetches relevant chunks.
+
+What is similarity search? – Finding closest vectors.
+
+What is query embedding? – Converting user query to vector.
+
+What is retrieval accuracy? – How relevant retrieved chunks are.
+
+What is recall? – Ability to retrieve all relevant results.
+
+What is precision? – Correctness of retrieved results.
+
+What is re-ranking? – Reordering results for better relevance.
+
+What is cross-encoder? – Model comparing query and result together.
+
+Why re-ranking needed? – Improves final answer quality.
+
+What is retrieval failure? – When relevant data is not retrieved.
+
+What is prompt in RAG? – Input to LLM including query + context.
+
+What is context injection? – Adding retrieved data into prompt.
+
+Why prompt important? – Directly affects output quality.
+
+What is system prompt? – Instructions guiding model behavior.
+
+What is temperature? – Controls randomness of output.
+
+What is max tokens? – Limits output length.
+
+What is prompt template? – Structured format for inputs.
+
+What is instruction tuning? – Training model to follow instructions.
+
+What is grounded response? – Answer based on retrieved data.
+
+What is hallucination control? – Limiting incorrect outputs.
+
+What is RAG pipeline? – End-to-end flow from data to answer.
+
+What is pipeline order? – Ingest → chunk → embed → store → retrieve → generate.
+
+Why pipeline modular? – Each step can be optimized separately.
+
+What is latency? – Time taken for response.
+
+What affects latency? – Retrieval + LLM speed.
+
+What is batch processing? – Handling multiple inputs together.
+
+What is real-time RAG? – Instant query response system.
+
+What is offline indexing? – Preprocessing data before queries.
+
+What is online retrieval? – Fetching data during query time.
+
+What is caching? – Storing results to reduce computation.
+
+What is RAG evaluation? – Measuring system performance.
+
+What is answer accuracy? – Correctness of output.
+
+What is faithfulness? – Answer matches retrieved context.
+
+What is context relevance? – Quality of retrieved chunks.
+
+What is BLEU score? – Measures text similarity.
+
+What is ROUGE score? – Measures overlap with reference.
+
+What is human evaluation? – Manual checking of outputs.
+
+What is hallucination rate? – Frequency of incorrect answers.
+
+What is latency evaluation? – Response time measurement.
+
+What is A/B testing? – Comparing different RAG setups.
+
+What is multi-hop RAG? – Retrieval across multiple steps.
+
+What is conversational RAG? – Handles chat history.
+
+What is memory in RAG? – Stores past interactions.
+
+What is agentic RAG? – Uses agents for reasoning.
+
+What is tool calling? – LLM using external tools.
+
+What is hybrid RAG? – Combines multiple retrieval methods.
+
+What is graph RAG? – Uses knowledge graphs.
+
+What is structured RAG? – Works with structured data.
+
+What is adaptive RAG? – Adjusts retrieval dynamically.
+
+What is retrieval augmentation? – Enhancing context with external sources.
+
+What is prompt injection? – Malicious input manipulating model.
+
+Why security important? – Protects system from misuse.
+
+What are guardrails? – Controls for safe output.
+
+What is data privacy? – Protecting sensitive information.
+
+What is access control? – Restricting data access.
+
+What is logging? – Tracking system activity.
+
+What is monitoring? – Observing system performance.
+
+What is scaling? – Handling large users/data.
+
+What is cost optimization? – Reducing API usage.
+
+What is deployment? – Running RAG system in production.
+
+Where is RAG used? – Chatbots, search engines, assistants.
+
+Why companies use RAG? – Use private + real-time data.
+
+What is enterprise RAG? – RAG with company data.
+
+What is domain-specific RAG? – Specialized knowledge system.
+
+What is legal RAG? – Used for legal documents.
+
+What is medical RAG? – Used for healthcare data.
+
+What is customer support RAG? – Automated support systems.
+
+What is documentation RAG? – Answering from docs.
+
+What is coding RAG? – Helps developers with code.
+
+What is best practice in RAG? – Good chunking + embeddings + retrieval tuning.

@@ -1,0 +1,119 @@
+What is prompt? – Input given to LLM.
+
+What is prompt engineering? – Designing prompts for better output.
+
+Why prompts important? – LLM behavior depends on input.
+
+What is system prompt? – Instructions guiding model behavior.
+
+What is few-shot prompting? – Providing examples.
+
+What is zero-shot prompting? – No examples given.
+
+What is chain-of-thought? – Encouraging step-by-step reasoning.
+
+What is role prompting? – Assigning role like “expert”.
+
+What is instruction prompt? – Direct task instruction.
+
+What is prompt template? – Structured reusable format.
+
+What is hallucination? – Confident but incorrect output.
+
+Why hallucination happens? – Model predicts patterns, not facts.
+
+What is bias in LLM? – Learned bias from training data.
+
+What is knowledge cutoff? – Model knowledge limited to training data.
+
+What is context window limit? – Maximum tokens model can process.
+
+What is token cost? – Cost per input/output token.
+
+What is latency? – Response time.
+
+What is model size issue? – Large models require high compute.
+
+What is lack of reasoning? – Limited logical consistency sometimes.
+
+What is data privacy risk? – Sensitive data exposure.
+
+What is LLM role in RAG? – Generates answer using retrieved context.
+
+Why combine LLM with RAG? – Improves factual accuracy.
+
+What is context injection? – Adding retrieved data to prompt.
+
+What is grounded response? – Answer based on real data.
+
+What is retrieval augmentation? – Enhancing LLM with external knowledge.
+
+What is hallucination reduction in RAG? – Using real documents.
+
+What is prompt + context format? – Query + retrieved chunks.
+
+What is knowledge update via RAG? – No retraining needed.
+
+What is dynamic knowledge? – Real-time data usage.
+
+What is RAG vs fine-tuning? – RAG is flexible, fine-tuning is static.
+
+What is fine-tuning? – Training model on custom data.
+
+What is instruction tuning? – Training to follow instructions.
+
+What is RLHF? – Reinforcement learning from human feedback.
+
+What is alignment? – Making model safe and useful.
+
+What is LoRA? – Efficient fine-tuning technique.
+
+What is quantization? – Reducing model size.
+
+What is distillation? – Creating smaller models.
+
+What is multi-modal LLM? – Handles text, images, audio.
+
+What is agentic LLM? – Uses tools and reasoning.
+
+What is tool calling? – LLM interacts with APIs/tools.
+
+What is prompt injection? – Malicious input manipulating model.
+
+What are guardrails? – Safety constraints on outputs.
+
+What is moderation? – Filtering harmful content.
+
+What is logging? – Tracking usage and outputs.
+
+What is monitoring? – Observing system behavior.
+
+What is scaling? – Handling large traffic.
+
+What is deployment? – Running model in production.
+
+What is API usage? – Accessing LLM via API.
+
+What is cost optimization? – Reducing token usage.
+
+What is caching? – Storing repeated responses.
+
+Where LLM used? – Chatbots, coding assistants, search, translation.
+
+What is coding assistant? – Helps generate code.
+
+What is chatbot? – Conversational AI system.
+
+What is summarization? – Condensing long text.
+
+What is translation? – Converting between languages.
+
+What is sentiment analysis? – Detecting emotions.
+
+What is Q&A system? – Answering questions from text.
+
+What is content generation? – Writing articles, emails.
+
+What is personalization? – Custom responses.
+
+What is enterprise LLM? – Used with private company data.

@@ -1,0 +1,139 @@
+What is an LLM? – A Large Language Model trained on massive text data to understand and generate human-like language.
+
+Why are LLMs powerful? – They capture language patterns, context, and reasoning from large-scale training.
+
+What is NLP? – Field of AI focused on understanding and generating human language.
+
+What is a language model? – Model that predicts the next word/token in a sequence.
+
+What is pretraining? – Training on large general datasets to learn language patterns.
+
+What is fine-tuning? – Training on specific data to adapt model behavior.
+
+What is generative AI? – AI that creates new content like text, images, or code.
+
+What is autoregressive model? – Generates text one token at a time.
+
+What is token? – Smallest unit of text processed by model.
+
+What is context in LLM? – Previous tokens used to generate next output.
+
+What is tokenization? – Splitting text into smaller units like words or subwords.
+
+Why tokenization needed? – Models cannot process raw text directly.
+
+What is subword tokenization? – Breaking words into smaller meaningful parts.
+
+What is BPE? – Byte Pair Encoding method for tokenization.
+
+What is WordPiece? – Tokenization method used in BERT.
+
+What is tokenizer vocabulary? – Set of tokens known to the model.
+
+What is OOV token? – Out-of-vocabulary token not recognized.
+
+Why token count important? – Affects cost and context window.
+
+What is special token? – Tokens like [CLS], [SEP], or EOS.
+
+What is padding? – Adding tokens to match input length.
+
+What is embedding? – Vector representation of tokens.
+
+Why embeddings used? – Convert text into numerical format.
+
+What is positional encoding? – Adds order information to tokens.
+
+Why positional encoding needed? – Transformers lack sequence awareness.
+
+What is embedding layer? – First layer mapping tokens to vectors.
+
+What is contextual embedding? – Meaning depends on surrounding words.
+
+What is static embedding? – Same vector regardless of context.
+
+Why contextual embeddings better? – Capture dynamic meanings.
+
+What is hidden state? – Internal representation of token in model.
+
+What is representation learning? – Learning useful data features automatically.
+
+What is transformer architecture? – Deep learning model using attention mechanism.
+
+Why transformers replaced RNNs? – Better parallelism and long-range dependency handling.
+
+What is attention mechanism? – Focus on relevant parts of input.
+
+What is self-attention? – Tokens attend to each other.
+
+What are Q, K, V? – Query, Key, Value matrices used in attention.
+
+What is attention score? – Importance of one token to another.
+
+What is softmax in attention? – Converts scores into probabilities.
+
+What is multi-head attention? – Multiple attention layers capturing different patterns.
+
+What is feedforward layer? – Fully connected layer after attention.
+
+What is layer normalization? – Stabilizes training.
+
+What is encoder? – Processes input and builds representation.
+
+What is decoder? – Generates output sequence.
+
+What is encoder-only model? – Used for understanding tasks (e.g., BERT).
+
+What is decoder-only model? – Used for generation (e.g., GPT).
+
+What is encoder-decoder model? – Used for translation tasks.
+
+Why GPT is decoder-only? – Designed for text generation.
+
+Why BERT is encoder-only? – Designed for understanding context.
+
+What is masked language model? – Predict missing tokens (BERT).
+
+What is causal language model? – Predict next token (GPT).
+
+What is seq2seq model? – Maps input sequence to output sequence.
+
+What is training objective? – Minimize prediction error.
+
+What is loss function? – Measures difference between prediction and actual.
+
+What is cross-entropy loss? – Common loss for language models.
+
+What is gradient descent? – Optimization method to update weights.
+
+What is backpropagation? – Computes gradients for updates.
+
+What is optimizer? – Algorithm like Adam for training.
+
+What is learning rate? – Step size for updates.
+
+What is epoch? – One full pass of dataset.
+
+What is batch size? – Number of samples per update.
+
+What is overfitting? – Model memorizes training data.
+
+What is inference? – Using trained model to generate output.
+
+What is decoding? – Process of generating tokens.
+
+What is greedy decoding? – Picks highest probability token.
+
+What is beam search? – Explores multiple sequences.
+
+What is temperature? – Controls randomness in output.
+
+What is top-k sampling? – Limits selection to top k tokens.
+
+What is top-p sampling? – Chooses tokens based on cumulative probability.
+
+Why sampling needed? – To make output more diverse.
+
+What is deterministic output? – Same input gives same output.
+
+What is stochastic output? – Output varies due to randomness.

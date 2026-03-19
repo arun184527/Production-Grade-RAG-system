@@ -1,0 +1,65 @@
+{"topic":"self_attention","source":"transformer.json","text":"What is self-attention? A mechanism where each token attends to all other tokens in the same sequence to capture relationships."}
+{"topic":"self_attention","source":"transformer.json","text":"Why self-attention is important? It allows the model to understand context and dependencies between words regardless of distance."}
+{"topic":"self_attention","source":"transformer.json","text":"What problem does self-attention solve? It handles long-range dependencies better than RNNs."}
+{"topic":"self_attention","source":"transformer.json","text":"How does self-attention work? It computes attention scores between tokens using query, key, and value vectors."}
+{"topic":"self_attention","source":"transformer.json","text":"What is output of self-attention? A weighted combination of value vectors based on attention scores."}
+
+{"topic":"multi_head_attention","source":"transformer.json","text":"What is multi-head attention? Multiple attention mechanisms running in parallel to capture different relationships."}
+{"topic":"multi_head_attention","source":"transformer.json","text":"Why multi-head attention used? It helps the model learn different types of patterns simultaneously."}
+{"topic":"multi_head_attention","source":"transformer.json","text":"How multi-head attention works? Input is split into multiple heads, each computes attention separately, then combined."}
+{"topic":"multi_head_attention","source":"transformer.json","text":"What is benefit of multiple heads? Each head focuses on different semantic aspects of the input."}
+{"topic":"multi_head_attention","source":"transformer.json","text":"What is final output? Concatenation of all head outputs followed by linear transformation."}
+
+{"topic":"query_key_value","source":"transformer.json","text":"What is query (Q)? Representation of the current token seeking relevant information."}
+{"topic":"query_key_value","source":"transformer.json","text":"What is key (K)? Representation of tokens used to match against query."}
+{"topic":"query_key_value","source":"transformer.json","text":"What is value (V)? Contains actual information passed after attention."}
+{"topic":"query_key_value","source":"transformer.json","text":"Why Q, K, V needed? They allow flexible computation of attention scores."}
+{"topic":"query_key_value","source":"transformer.json","text":"How Q, K, V generated? Through linear transformations of input embeddings."}
+
+{"topic":"scaled_dot_product_attention","source":"transformer.json","text":"What is scaled dot-product attention? Computes attention using QK^T divided by sqrt(d)."}
+{"topic":"scaled_dot_product_attention","source":"transformer.json","text":"Why scaling used? Prevents large values that can destabilize softmax."}
+{"topic":"scaled_dot_product_attention","source":"transformer.json","text":"What is output? Softmax(QK^T / sqrt(d)) multiplied by V."}
+{"topic":"scaled_dot_product_attention","source":"transformer.json","text":"Why softmax used? Converts scores into probability distribution."}
+{"topic":"scaled_dot_product_attention","source":"transformer.json","text":"What does attention score represent? Importance of one token relative to another."}
+
+{"topic":"positional_encoding","source":"transformer.json","text":"What is positional encoding? Technique to add order information to token embeddings."}
+{"topic":"positional_encoding","source":"transformer.json","text":"Why positional encoding needed? Transformers process tokens in parallel and lack sequence awareness."}
+{"topic":"positional_encoding","source":"transformer.json","text":"What is sinusoidal encoding? Uses sine and cosine functions to represent positions."}
+{"topic":"positional_encoding","source":"transformer.json","text":"What is learned positional encoding? Position embeddings learned during training."}
+{"topic":"positional_encoding","source":"transformer.json","text":"What is benefit? Helps model understand word order in sentences."}
+
+{"topic":"masked_attention","source":"transformer.json","text":"What is masked attention? Prevents model from seeing future tokens during training."}
+{"topic":"masked_attention","source":"transformer.json","text":"Why masking used? Ensures autoregressive behavior in text generation."}
+{"topic":"masked_attention","source":"transformer.json","text":"Where used? In decoder part of transformer."}
+{"topic":"masked_attention","source":"transformer.json","text":"What problem solved? Prevents information leakage from future tokens."}
+{"topic":"masked_attention","source":"transformer.json","text":"How implemented? Using a mask matrix applied before softmax."}
+
+{"topic":"encoder","source":"transformer.json","text":"What is encoder? Part of transformer that processes input sequence into meaningful representations."}
+{"topic":"encoder","source":"transformer.json","text":"What does encoder contain? Self-attention and feedforward layers."}
+{"topic":"encoder","source":"transformer.json","text":"What is encoder output? Context-rich representations of input tokens."}
+{"topic":"encoder","source":"transformer.json","text":"Where encoder used? In models like BERT."}
+{"topic":"encoder","source":"transformer.json","text":"What is purpose? Understand input context deeply."}
+
+{"topic":"decoder","source":"transformer.json","text":"What is decoder? Part of transformer that generates output sequence."}
+{"topic":"decoder","source":"transformer.json","text":"What layers in decoder? Masked attention, encoder-decoder attention, feedforward."}
+{"topic":"decoder","source":"transformer.json","text":"What is encoder-decoder attention? Decoder attends to encoder output."}
+{"topic":"decoder","source":"transformer.json","text":"Where decoder used? In GPT and translation models."}
+{"topic":"decoder","source":"transformer.json","text":"What is purpose? Generate tokens sequentially."}
+
+{"topic":"feedforward_layer","source":"transformer.json","text":"What is feedforward layer? Fully connected neural network applied after attention."}
+{"topic":"feedforward_layer","source":"transformer.json","text":"Why needed? Adds non-linearity and transformation power."}
+{"topic":"feedforward_layer","source":"transformer.json","text":"How applied? Independently to each token."}
+{"topic":"feedforward_layer","source":"transformer.json","text":"What is structure? Two linear layers with activation function."}
+{"topic":"feedforward_layer","source":"transformer.json","text":"What is benefit? Enhances representation learning."}
+
+{"topic":"residual_connection","source":"transformer.json","text":"What is residual connection? Adds input to output of a layer."}
+{"topic":"residual_connection","source":"transformer.json","text":"Why used? Prevents vanishing gradients."}
+{"topic":"residual_connection","source":"transformer.json","text":"What is skip connection? Another name for residual connection."}
+{"topic":"residual_connection","source":"transformer.json","text":"Where applied? After attention and feedforward layers."}
+{"topic":"residual_connection","source":"transformer.json","text":"What is benefit? Improves deep network training."}
+
+{"topic":"layer_normalization","source":"transformer.json","text":"What is layer normalization? Normalizes inputs across features."}
+{"topic":"layer_normalization","source":"transformer.json","text":"Why used? Stabilizes and speeds up training."}
+{"topic":"layer_normalization","source":"transformer.json","text":"Where applied? After each sub-layer."}
+{"topic":"layer_normalization","source":"transformer.json","text":"Difference from batch norm? Works per sample, not batch."}
+{"topic":"layer_normalization","source":"transformer.json","text":"What is benefit? Improves convergence."}
