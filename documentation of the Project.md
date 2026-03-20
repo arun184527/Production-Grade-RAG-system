@@ -63,16 +63,8 @@ Cleaning Pipeline Implementation
  - Remove table formatting symbols
  - Remove special wiki commands
  - Normalize whitespace
-Here i have created clean_dataset.py program to clean the Noisy data present in the raw_text.jsonl file and store that data in the clean 
+Here i have created clean_dataset.py program to clean the Noisy data present in the raw_text.jsonl file and store that data in the clean_text.jsonl file. 
 
-
-Dataset Validation
-After cleaning the dataset, a validation step was performed to ensure the preprocessing pipeline worked correctly
- - rticle structure consistency
- - removal of Wikipedia markup artifacts
- - minimum text length requirements
- - preservation of meaningful natural language content
- 
 Document Chunking
  Chunking means splitting long documents into smaller pieces so they can be processed by embedding models and stored efficiently in a vector database.
  Chunking acts as the bridge between raw textual data and embedding generation.
@@ -85,9 +77,9 @@ Benefits of chunking
  - Efficient Vector Storage - Smaller chunks reduce memory overhead and make vector search more efficient.
  - Context Preservation - Using overlapping chunks ensures that contextual information is not lost between segments.
 Chunking Workflow
- - Load cleaned Wikipedia articles.
+ - Load cleaned data from the clean_text.jsonl file.
  - Extract article metadata.
- - Split article text into words.
+  Sentence-wise Chunking.
  - Generate chunks of fixed size.
  - Apply overlapping windows to preserve context.
  - Store each chunk with metadata.
@@ -111,6 +103,7 @@ Each chunk contains:
  - chunk_id – unique identifier for the chunk
  - title – article title used as metadata
  - text – the chunked portion of the article text
+and store this data in the chunks.jsonl file 
 
 Embedding Generation 
 After splitting the dataset into smaller text chunks, the next step in the Retrieval-Augmented Generation (RAG) pipeline is embedding generation.
@@ -121,7 +114,6 @@ Embedding Library - libraries/embedding/embedder.py
 for Embedding Created a python script "embeddings_datset.py"
 Why Embeddings Are Important 
 Embedding vectors allow the system to perform semantic search instead of keyword-based search
-
 Embedding Model
 The project uses the following embedding model
  - "sentence-transformers/all-MiniLM-L6-v2"
@@ -132,7 +124,7 @@ This model was chosen because
  - works well for semantic search tasks
 The model converts each text chunk into a 384-dimensional vector representation
 Embedding Generation Process
- - Load the chunked dataset (wiki_chunks.jsonl)
+ - Load the chunked dataset (chunks.jsonl)
  - Read each chunk line-by-line
  - Extract the text content
  - Generate an embedding vector using the embedding model
@@ -202,6 +194,29 @@ Benefits of Using a Retriever
  - Supports domain-specific knowledge retrieval
 For the Retriever i have created retrieval.py
 
+Reranking Model
+After retrieving the top-K relevant chunks from the vector database, the next step in the RAG system is Reranking. The reranking module refines the retrieved results by selecting the most relevant and contextually accurate chunks.
+In a Retrieval-Augmented Generation (RAG) system, the retriever provides approximate results based on vector similarity. However, these results may still contain irrelevant or loosely related chunks. The reranker improves the quality of these results before passing them to the language model.
+Role of Reranking in the RAG Pipeline
+The reranker operates after retrieval and before prompt construction.
+The reranker ensures that only the most relevant information is used as context.
+Here i have used "Cross-Encoder Model" for reranking
+Why Reranking is Important
+Without reranking:
+ - Retrieval may include noisy or weakly related chunks
+ - The LLM may receive poor context
+ - Output quality decreases
+With reranking:
+ - Context becomes highly relevant
+ - Noise is reduced
+ - Answer accuracy improves significantly
+Benefits of Reranking
+ - Improves precision of retrieved results
+ - Enhances context quality for LLM
+ - Reduces irrelevant information
+ - Boosts overall system performance
+for the reranking i have created reranker.py program 
+
 Prompt Template
 Why Prompt Templates Are Important?
  - read retrieved documents
@@ -233,6 +248,207 @@ The Prompt Builder performs the following tasks
  - Constructs a structured prompt
  - Returns the final prompt string
 The Prompt Builder is a key component in the RAG system that transforms retrieved knowledge into a structured prompt for the language model. By enforcing a consistent prompt format, it ensures that the LLM produces accurate and context-grounded responses.
-For the Prompt i have created prompt_builder
+For the Prompt i have created prompt_builder program.
+
+RAG Pipeline Module
+After constructing the final prompt, the next step in the system is executing the RAG Pipeline, which integrates retrieval, context processing, and language model inference into a single workflow.
+The rag_pipeline.py module acts as the core orchestrator of the entire system. It connects all components including retrieval, reranking, prompt building, tokenization, and LLM generation.
+Role of RAG Pipeline in the System
+The RAG pipeline ensures that all individual components work together to generate a final answer.
+The pipeline acts as the central processing unit that manages the flow from input query to final response.
+How the RAG Pipeline Works
+ - Input Query
+   - The pipeline starts when a user query is passed to the system.
+ - Retrieve Relevant Data
+   - Calls the retriever to fetch top-K chunks from FAISS.
+ - Rerank Results
+   - Applies cross-encoder reranking to improve relevance.
+ - Build Prompt
+   - Combines user query and selected chunks into a structured prompt.
+ - Pass to Tokenization
+   - Sends the final prompt to the tokenizer for model input preparation.
+Why the RAG Pipeline is Important
+ - Centralizes system logic
+ - Ensures smooth data flow between modules
+ - Maintains consistency across components
+ - Makes system modular and scalable
+Benefits of Using a RAG Pipeline
+ - Improves maintainability of code
+ - Enables easy debugging and upgrades
+ - Supports integration of different models
+ - Provides structured execution flow
+
+Tokenization Module
+After the prompt is constructed and passed through the RAG pipeline, the next step is Tokenization.
+Tokenization converts human-readable text into a numerical format that the language model can understand.
+The tokenizer acts as a bridge between text and the language model.
+How Tokenization Works
+ - The final prompt is passed to the tokenizer
+ - The tokenizer splits text into smaller units called tokens
+ - Each token is assigned a unique numerical ID
+ - The sequence of token IDs is passed to the model
+Token Count
+The system calculates the number of tokens in the input
+This helps 
+ - Monitor input size
+ - Optimize performance
+ - Prevent exceeding model limits
+Why Tokenization is Important
+ - LLMs process tokens, not raw text
+ - Ensures compatibility with the model
+ - Affects speed and memory usage
+ - Critical for efficient inference
+Benefits of Tokenization
+ - Converts text into machine-readable format
+ - Enables efficient processing by LLM
+ - Helps manage context size
+ - Supports accurate response generation
+
+LLM Generation Module
+After tokenization, the final step in the RAG system is LLM Generation, where the language model produces the answer based on the provided prompt and context.
+The LLM module is responsible for generating human-like, context-aware responses using the retrieved and processed information from earlier stages.
+Role of LLM in the RAG Pipeline
+The LLM is the final decision-making component that interprets the prompt and generates the response.
+Model Used
+ - TinyLlama (Local LLM)
+ - Type: Causal Language Model
+ - Runs locally for offline inference
+How the LLM Works
+ - Input Tokens
+   - The tokenized prompt (query + context) is passed to the model
+ - Context Understanding
+   - The model reads:
+     - User query
+     - Retrieved context
+ - Next Token Prediction
+   - The model generates output by predicting the next token step-by-step
+ - Sequence Generation
+   - Tokens are generated until:
+     - Maximum token limit is reached
+     - End-of-sequence token is produced
+Why LLM is Important
+ - Generates final answer
+ - Combines reasoning + retrieved knowledge
+ - Produces natural language output
+ - Core intelligence of the system
+Benefits of Using LLM in RAG
+ - Reduces hallucination (due to context grounding)
+ - Improves answer quality
+ - Enables natural interaction
+ - Supports domain-specific responses
+Why it is Important
+ - Improves readability
+ - Removes model artifacts
+ - Ensures clean user output
+
+API Module (FastAPI)
+The FastAPI backend handles communication between frontend and RAG pipeline.
+Role of API
+ - User Request → RAG Pipeline → Response
+How it Works
+ - Receives POST request (/chat)
+ - Calls retrieval + reranking + LLM
+ - Returns structured JSON
+Why API is Important
+ - Connects frontend and backend
+ - Enables real-time interaction
+ - Makes system scalable
+here i have created api/app.py file for API 
+
+ngrok Module
+ngrok exposes the local API to the internet.
+Role of ngrok
+ - localhost → public URL
+How it Works
+ - Creates secure tunnel
+ - Maps local server to public endpoint
+Why it is Important
+ - Enables remote access
+ - Useful for testing and demos
+
+UI Module (Gradio)
+The Gradio UI provides an interactive chat interface.
+Role of UI
+ - User → Input → API → Output → User
+How it Works
+ - Takes user input
+ - Sends request to API
+ - Displays response
+Why UI is Important
+ - Improves usability
+ - Enables real-time interaction
+ - Makes system user-friendly
 
 
+Key Features of the System
+ - End-to-end RAG pipeline implementation
+ - Semantic search using FAISS and embeddings
+ - Reranking for improved retrieval accuracy
+ - Context-aware answer generation using local LLM
+ - Real-time API-based interaction
+ - Interactive UI with pipeline transparency
+ - Reduced hallucination through grounded responses
+
+
+Challenges Faced and Solutions
+Poor Retrieval Quality
+ Problem - Initial retrieval results from FAISS were not highly relevant. Some returned chunks were loosely related to the query, leading to incorrect or incomplete answers.
+ Solution - Implemented a Cross-Encoder Reranker (ms-marco-MiniLM-L-6-v2)
+          - Re-ranked retrieved chunks based on query relevance
+Inefficient Chunking Strategy
+ Problem - Early chunking methods (sentence-based or small chunks) resulted in:
+           - Loss of context
+           - Incomplete information
+           - Poor retrieval performance
+ Solution - Switched to semantic chunking with overlap
+          - Tuned: chunk size, overlap
+LLM Generating Irrelevant or Repeated Output
+ Problem - The LLM sometimes: Repeated the prompt, Generated extra or irrelevant text
+ Solution - Improved prompt engineering with clear instructions
+          - Added output cleaning logic to extract final answer
+Token Limit and Input Size Issues
+ Problem - Large context chunks caused:
+           - High token count
+           - Slower inference
+           - Risk of exceeding model limits
+ Soultion - Limited number of chunks (Top-K selection)
+          - Monitored token count before inference
+Integration Complexity Between Modules
+ Problem - Connecting multiple components (retrieval, reranking, prompt, LLM) caused:
+           - Data flow inconsistencies
+           - Debugging difficulty
+ Soultion - Created a centralized RAG pipeline module (rag_pipeline.py)
+          - Standardized input/output formats between modules
+API and Public Access Issues
+ Problem - Local API was not accessible externally
+         - ngrok setup errors (authentication, connection issues)
+ Soultion - Configured ngrok with proper authentication token
+          - Ensured FastAPI runs on correct port (8000)
+Performance Limitations (Low RAM System)
+ Problem - Running LLM locally on limited hardware (8GB RAM) caused:
+           - Slow inference
+           - Memory constraints
+ Soultion - Used lightweight model (TinyLlama)
+          - Optimized generation parameters
+Debugging Empty or Incorrect Responses
+ Problem - API sometimes returned empty responses
+ Soultion - Fixed response extraction logic
+          - Ensured proper decoding and formatting
+
+
+Key Learning from Challenges
+ - Retrieval quality directly impacts final output
+ - Reranking is essential for production RAG systems
+ - Chunking strategy is critical for performance
+ - Prompt design significantly affects LLM behavior
+ - System integration is as important as individual components
+
+
+Conclusion:
+
+This project successfully demonstrates the design and implementation of an end-to-end Retrieval-Augmented Generation (RAG) system that combines efficient information retrieval with context-aware language generation.
+By integrating components such as semantic chunking, vector embeddings, FAISS-based retrieval, cross-encoder reranking, prompt engineering, and a local LLM, the system is able to generate accurate, relevant, and grounded responses to user queries.
+One of the key strengths of this system is its ability to overcome common limitations of standalone language models, such as hallucination and outdated knowledge, by incorporating real-time retrieval from a structured knowledge base. The addition of reranking further enhances the quality of retrieved context, ensuring that the language model receives the most relevant information.
+The use of a lightweight local LLM enables offline inference and efficient deployment on limited hardware, while the FastAPI backend and Gradio interface provide a complete, interactive user experience. The integration of ngrok allows external access, making the system suitable for testing and demonstration across devices.
+Throughout the development process, several challenges were encountered, including retrieval accuracy, chunking optimization, and output consistency. Addressing these challenges led to a deeper understanding of RAG system design and resulted in significant improvements in performance and reliability.
+Overall, this project reflects a production-oriented approach to building AI systems, emphasizing modular design, scalability, and real-world applicability. It highlights the importance of combining retrieval mechanisms with generative models to create intelligent systems capable of delivering precise and trustworthy responses.

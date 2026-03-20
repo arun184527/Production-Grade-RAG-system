@@ -1,0 +1,13 @@
+Models Used 
+Step	Component	        Model / Tool Used	               Type	                         Purpose
+1️	     Chunking	            No model	                 Processing	              Split documents into smaller chunks
+2️	     Embedding	            all-MiniLM-L6-v2	         Embedding Model	      Convert text → vector (numerical representation)
+3️	     Vector DB	            FAISS	                     Library	              Store embeddings & perform similarity search
+4️	     Retrieval	            all-MiniLM-L6-v2	         Embedding Model	      Convert query → vector & retrieve similar chunks
+5️	     Reranking	            ms-marco-MiniLM-L-6-v2	     Cross-Encoder Model	  Reorder chunks based on relevance
+6️	     Prompt Building	    No model	                 Logic	                  Combine query + context into structured prompt
+7️	     Tokenization	        LLM Tokenizer	             Tokenizer	              Convert text → tokens for model input
+8️	     LLM (Generation)       TinyLlama-1.1B-Chat	         Language Model	          Generate final answer
+9️	     API Layer	            FastAPI	                     Backend Framework	      Handle requests & responses
+10	    Public Access	       ngrok	                    Networking Tool	         Expose local API to internet
+11	    UI	                   Gradio	                    Frontend Tool	         Chat interface for user interaction
