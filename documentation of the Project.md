@@ -394,46 +394,46 @@ Challenges Faced and Solutions
 Poor Retrieval Quality
  Problem - Initial retrieval results from FAISS were not highly relevant. Some returned chunks were loosely related to the query, leading to incorrect or incomplete answers.
  Solution - Implemented a Cross-Encoder Reranker (ms-marco-MiniLM-L-6-v2)
-          - Re-ranked retrieved chunks based on query relevance
+          - Re-ranked retrieved chunks based on query relevance.
 Inefficient Chunking Strategy
  Problem - Early chunking methods (sentence-based or small chunks) resulted in:
            - Loss of context
            - Incomplete information
            - Poor retrieval performance
  Solution - Switched to semantic chunking with overlap
-          - Tuned: chunk size, overlap
+          - Tuned: chunk size, overlap.
 LLM Generating Irrelevant or Repeated Output
  Problem - The LLM sometimes: Repeated the prompt, Generated extra or irrelevant text
  Solution - Improved prompt engineering with clear instructions
-          - Added output cleaning logic to extract final answer
+          - Added output cleaning logic to extract final answer.
 Token Limit and Input Size Issues
  Problem - Large context chunks caused:
            - High token count
            - Slower inference
            - Risk of exceeding model limits
  Soultion - Limited number of chunks (Top-K selection)
-          - Monitored token count before inference
+          - Monitored token count before inference.
 Integration Complexity Between Modules
  Problem - Connecting multiple components (retrieval, reranking, prompt, LLM) caused:
            - Data flow inconsistencies
            - Debugging difficulty
  Soultion - Created a centralized RAG pipeline module (rag_pipeline.py)
-          - Standardized input/output formats between modules
+          - Standardized input/output formats between modules.
 API and Public Access Issues
  Problem - Local API was not accessible externally
          - ngrok setup errors (authentication, connection issues)
  Soultion - Configured ngrok with proper authentication token
-          - Ensured FastAPI runs on correct port (8000)
+          - Ensured FastAPI runs on correct port (8000).
 Performance Limitations (Low RAM System)
  Problem - Running LLM locally on limited hardware (8GB RAM) caused:
            - Slow inference
            - Memory constraints
  Soultion - Used lightweight model (TinyLlama)
-          - Optimized generation parameters
+          - Optimized generation parameters.
 Debugging Empty or Incorrect Responses
  Problem - API sometimes returned empty responses
  Soultion - Fixed response extraction logic
-          - Ensured proper decoding and formatting
+          - Ensured proper decoding and formatting.
 
 
 Key Learning from Challenges
