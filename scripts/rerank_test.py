@@ -6,7 +6,7 @@ import scripts.retrieval as retrieval
 import scripts.reranker as reranker
 importlib.reload(retrieval)
 importlib.reload(reranker)
-query = "What is FAISS?"
+query = "What is RAG?"
 retrieved = retrieval.retrieve(query, k=5)
 print("\n BEFORE RERANKING")
 for r in retrieved:
@@ -16,4 +16,4 @@ reranked = reranker.rerank(query, retrieved, top_k=3)
 print("\n\n AFTER RERANKING")
 for r in reranked:
     print("\nRerank Score:", r["rerank_score"])
-    print("Text:", r["data"]["text"][:100])
+    print(" Text:", r["text"][:300])

@@ -1,5 +1,5 @@
 
-What is RAG? – A system that combines retrieval of external data with LLM generation to produce accurate, grounded responses.
+What is RAG? – Retrieval-Augmented Generation A system that combines retrieval of external data with LLM generation to produce accurate, grounded responses.
 
 Why RAG is needed? – LLMs have limited knowledge and can hallucinate; RAG adds real data.
 

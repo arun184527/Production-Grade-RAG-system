@@ -9,5 +9,5 @@ Step	Component	        Model / Tool Used	               Type	                   
 7️	     Tokenization	        LLM Tokenizer	             Tokenizer	              Convert text → tokens for model input
 8️	     LLM (Generation)       TinyLlama-1.1B-Chat	         Language Model	          Generate final answer
 9️	     API Layer	            FastAPI	                     Backend Framework	      Handle requests & responses
-10	    Public Access	       ngrok	                    Networking Tool	         Expose local API to internet
-11	    UI	                   Gradio	                    Frontend Tool	         Chat interface for user interaction
+10	 Public Access	        ngrok	                     Networking Tool	      Expose local API to internet
+11	    UI	                Gradio	                     Frontend Tool	      Chat interface for user interaction

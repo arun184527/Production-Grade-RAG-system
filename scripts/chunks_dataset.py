@@ -4,7 +4,7 @@ from tqdm import tqdm
 INPUT_FILE = "data/clean_text.jsonl"
 OUTPUT_FILE = "data/chunks.jsonl"
 def chunk_text(text, chunk_size=5, overlap=1):
-    sentences = re.split(r'(?<=\?)\s+', text)
+    sentences = re.split(r'(?<=[\.\?\!])\s+', text)
     chunks = []
     start = 0
     while start < len(sentences):

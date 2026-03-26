@@ -10,7 +10,7 @@ def clean_text(text):
     text = re.sub(r"http\S+", "", text)
     text = text.replace("\n", " ")
     text = re.sub(r"\s+", " ", text)
-    text = re.sub(r"[^\w\s\.\?\!\,]", "", text)
+    text = re.sub(r"[^\w\s\.\?\!\,\:\;\%\(\)\-]", "", text)
     if "cosine similarity" in text and "From 1 to 1" in text:
      text = text.replace("From 1 to 1", "From -1 to 1")
     return text.strip()
@@ -22,7 +22,7 @@ with open(INPUT_FILE, "r", encoding="utf-8") as infile, \
         try:
             data = json.loads(line)
             text = clean_text(data.get("text", ""))
-            if len(text) < 30:
+            if len(text.split()) < 5:
                 skipped_count += 1
                 continue
             cleaned_data = {

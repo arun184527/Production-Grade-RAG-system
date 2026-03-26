@@ -1,30 +1,37 @@
 import sys
 import os
+import requests
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from scripts.retrieval import search
 from scripts.reranker import rerank
 from scripts.prompt_builder import build_prompt
-from transformers import AutoTokenizer, AutoModelForCausalLM
-import torch
-model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
-tokenizer = AutoTokenizer.from_pretrained(model_name)
-model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    torch_dtype=torch.float16,
-    device_map="auto"
-)
 def generate_answer(query):
-    docs = search(query, top_k=5)
-    docs = rerank(query, docs, top_k=3)
-    prompt = build_prompt(query, docs)
-    inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
-    outputs = model.generate(
-        **inputs,
-        max_new_tokens=150,
-        temperature=0.7,
-        do_sample=True
-    )
-    response = tokenizer.decode(outputs[0], skip_special_tokens=True)
-    if "Answer:" in response:
-        response = response.split("Answer:")[-1].strip()
-    return response
+    try:
+        docs = search(query, top_k=3)
+        docs = rerank(query, docs, top_k=2)
+        prompt = build_prompt(query, docs)
+        response = requests.post(
+            "http://localhost:11434/api/generate",
+            json={
+                "model": "tinyllama",  
+                "prompt": prompt,
+                "stream": False,
+                "options": {
+                    "num_predict": 120,
+                    "temperature": 0.7
+                }
+            },
+            timeout=60
+        )
+        result = response.json()["response"].strip()
+        return result
+    except Exception as e:
+        return f"Error: {str(e)}"
+if __name__ == "__main__":
+    while True:
+        query = input("\nEnter your question (or type 'exit'): ")
+        if query.lower() == "exit":
+            break
+
+        answer = generate_answer(query)
+        print("\nAnswer:\n", answer)

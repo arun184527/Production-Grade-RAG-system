@@ -29,7 +29,7 @@ print(f"\nTotal chunks: {len(texts)}")
 print("\nGenerating embeddings...")
 embeddings = model.encode(
     texts,
-    batch_size=32,
+    batch_size=16,
     show_progress_bar=True,
     convert_to_numpy=True,
     normalize_embeddings=True
