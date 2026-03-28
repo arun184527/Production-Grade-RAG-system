@@ -1,0 +1,27 @@
+Query,Accuracy,Recall,Grounding,Hallucination,Latency
+What is chunking?,0.67,1.0,0.94,PASS,11.68
+Why is chunking important?,0.67,1.0,0.96,PASS,7.58
+What is chunk overlap?,0.67,1.0,0.83,PASS,8.34
+What is embedding?,0.0,1.0,0.53,PASS,7.89
+Why embeddings are used in RAG?,0.0,1.0,0.57,PASS,7.66
+What is vector database?,0.67,1.0,0.53,PASS,9.11
+What is FAISS?,0.67,1.0,0.45,PASS,7.65
+What is cosine similarity?,0.67,1.0,0.75,PASS,7.6
+What is RAG?,0.67,0.67,0.76,PASS,8.0
+Why RAG reduces hallucination?,0.67,1.0,0.65,PASS,7.09
+What is retrieval in RAG?,0.67,1.0,0.67,PASS,7.49
+What is re-ranking?,1.0,1.0,0.89,PASS,6.84
+What is cross-encoder?,0.33,0.67,0.62,PASS,6.65
+What is prompt in RAG?,0.33,1.0,0.58,PASS,6.45
+What is hallucination?,0.0,1.0,0.42,PASS,6.55
+What is self-attention?,0.67,1.0,0.91,PASS,7.58
+Why self-attention is important?,0.67,1.0,0.89,PASS,4.79
+What is multi-head attention?,0.33,1.0,0.79,PASS,7.21
+Why multi-head attention used?,0.5,1.0,0.5,PASS,7.38
+What is positional encoding?,0.67,1.0,0.71,PASS,6.53
+What is encoder in transformer?,1.0,1.0,0.73,PASS,6.42
+What is decoder in transformer?,0.0,1.0,0.39,PASS,6.34
+What is feedforward layer?,1.0,1.0,0.64,PASS,6.75
+What is layer normalization?,1.0,1.0,0.7,PASS,6.17
+What is latency in RAG system?,0.5,1.0,0.65,PASS,6.51
+Explain in very detail how retrieval augmented gen,0.0,1.0,0.67,PASS,0

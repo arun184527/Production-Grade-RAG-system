@@ -2,126 +2,131 @@
   {
     "query": "What is chunking?",
     "expected_answer": "splitting large documents into smaller manageable pieces",
-    "type": "direct"
+    "relevant_keywords": ["splitting", "documents", "chunks"]
   },
   {
     "query": "Why is chunking important?",
     "expected_answer": "improves retrieval accuracy by retrieving relevant parts",
-    "type": "reasoning"
+    "relevant_keywords": ["retrieval", "accuracy", "relevant"]
   },
   {
     "query": "What is chunk overlap?",
     "expected_answer": "repeating some content between chunks to preserve context",
-    "type": "direct"
+    "relevant_keywords": ["repeating", "context", "chunks"]
   },
   {
     "query": "What is embedding?",
     "expected_answer": "numerical vector representation of data capturing semantic meaning",
-    "type": "direct"
+    "relevant_keywords": ["vector", "representation", "semantic"]
   },
   {
     "query": "Why embeddings are used in RAG?",
     "expected_answer": "enable semantic search instead of keyword matching",
-    "type": "reasoning"
+    "relevant_keywords": ["semantic", "search", "matching"]
   },
   {
     "query": "What is vector database?",
     "expected_answer": "database that stores embeddings for similarity search",
-    "type": "direct"
+    "relevant_keywords": ["database", "embeddings", "search"]
   },
   {
     "query": "What is FAISS?",
     "expected_answer": "library for fast similarity search of dense vectors",
-    "type": "direct"
+    "relevant_keywords": ["library", "search", "vectors"]
   },
   {
     "query": "What is cosine similarity?",
     "expected_answer": "measures similarity between vectors based on angle",
-    "type": "direct"
+    "relevant_keywords": ["similarity", "vectors", "angle"]
   },
   {
     "query": "What is RAG?",
     "expected_answer": "combines retrieval of external data with LLM generation",
-    "type": "direct"
+    "relevant_keywords": ["retrieval", "generation", "context"]
   },
   {
     "query": "Why RAG reduces hallucination?",
     "expected_answer": "because it provides real context from retrieved data",
-    "type": "reasoning"
+    "relevant_keywords": ["context", "retrieved", "data"]
   },
   {
     "query": "What is retrieval in RAG?",
     "expected_answer": "fetching relevant documents using similarity search",
-    "type": "direct"
+    "relevant_keywords": ["fetching", "documents", "search"]
   },
   {
     "query": "What is re-ranking?",
     "expected_answer": "reordering retrieved results for better relevance",
-    "type": "direct"
+    "relevant_keywords": ["reordering", "results", "relevance"]
   },
   {
     "query": "What is cross-encoder?",
     "expected_answer": "model that compares query and document together",
-    "type": "direct"
+    "relevant_keywords": ["model", "query", "document"]
   },
   {
     "query": "What is prompt in RAG?",
     "expected_answer": "input to LLM including query and retrieved context",
-    "type": "direct"
+    "relevant_keywords": ["input", "context", "query"]
   },
   {
     "query": "What is hallucination?",
     "expected_answer": "model generating incorrect but confident answers",
-    "type": "direct"
+    "relevant_keywords": ["incorrect", "answers", "model"]
   },
   {
     "query": "What is self-attention?",
     "expected_answer": "mechanism where tokens attend to each other in sequence",
-    "type": "direct"
+    "relevant_keywords": ["tokens", "sequence", "attention"]
   },
   {
     "query": "Why self-attention is important?",
     "expected_answer": "captures context and long-range dependencies",
-    "type": "reasoning"
+    "relevant_keywords": ["context", "dependencies", "long-range"]
   },
   {
     "query": "What is multi-head attention?",
     "expected_answer": "multiple attention mechanisms running in parallel",
-    "type": "direct"
+    "relevant_keywords": ["multiple", "attention", "parallel"]
   },
   {
     "query": "Why multi-head attention used?",
     "expected_answer": "learn different patterns simultaneously",
-    "type": "reasoning"
+    "relevant_keywords": ["patterns", "simultaneously"]
   },
   {
     "query": "What is positional encoding?",
     "expected_answer": "adds order information to token embeddings",
-    "type": "direct"
+    "relevant_keywords": ["order", "tokens", "embeddings"]
   },
   {
     "query": "What is encoder in transformer?",
     "expected_answer": "processes input sequence into meaningful representations",
-    "type": "direct"
+    "relevant_keywords": ["input", "sequence", "representations"]
   },
   {
     "query": "What is decoder in transformer?",
     "expected_answer": "generates output sequence",
-    "type": "direct"
+    "relevant_keywords": ["output", "sequence"]
   },
   {
     "query": "What is feedforward layer?",
     "expected_answer": "fully connected layer applied after attention",
-    "type": "direct"
+    "relevant_keywords": ["layer", "connected", "attention"]
   },
   {
     "query": "What is layer normalization?",
     "expected_answer": "normalizes inputs to stabilize training",
-    "type": "direct"
+    "relevant_keywords": ["normalize", "training"]
   },
   {
     "query": "What is latency in RAG system?",
     "expected_answer": "time taken to generate response",
-    "type": "system"
+    "relevant_keywords": ["time", "response"]
+  },
+  {
+  "query": "Explain in very detail how retrieval augmented generation works including embeddings vector databases similarity search reranking cross encoder prompt engineering tokenization latency optimization and deployment challenges in production systems with examples",
+  "expected_answer": "long explanation",
+  "relevant_keywords": ["retrieval", "generation"]
   }
 ]

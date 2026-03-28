@@ -1,21 +1,15 @@
-from scripts.retrieval import search
-from scripts.reranker import rerank
-from scripts.prompt_builder import build_prompt
 import requests
-import time
+API_URL = "http://127.0.0.1:8000/chat"
 def run_rag(query):
-    start = time.time()
-    docs = search(query, top_k=3)
-    docs = rerank(query, docs, top_k=2)
-    prompt = build_prompt(query, docs)
     response = requests.post(
-        "http://localhost:11434/api/generate",
-        json={
-            "model": "gemma3:4b",
-            "prompt": prompt,
-            "stream": False
-        }
+        API_URL,
+        json={"query": query},
+        timeout=60
     )
-    answer = response.json().get("response", "")
-    latency = time.time() - start
-    return docs, answer, latency
+    data = response.json() 
+    return {
+        "answer": data.get("answer", ""),
+        "retrieved": data.get("retrieved_chunks", []),
+        "reranked": data.get("reranked_chunks", []),
+        "latency": data.get("latency", 0)
+    }
