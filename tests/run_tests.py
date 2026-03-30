@@ -69,31 +69,76 @@ if valid_tests > 0:
     print("Grounding:", round(avg_ground, 2))
     print("Avg Latency:", round(avg_latency, 2))
 from openpyxl import Workbook
+from openpyxl.styles import Font, PatternFill, Alignment
+
 wb = Workbook()
 ws = wb.active
 ws.title = "RAG Report"
-ws.append([
-    "Query",
-    "Accuracy",
-    "Recall",
-    "Grounding",
-    "Hallucination",
-    "Latency"
-])
+
+# Header
+headers = ["Query", "Accuracy", "Recall", "Grounding", "Hallucination", "Latency"]
+ws.append(headers)
+
+# Style Header
+header_fill = PatternFill(start_color="000000", end_color="000000", fill_type="solid")
+header_font = Font(color="FFFFFF", bold=True)
+
+for col in ws[1]:
+    col.fill = header_fill
+    col.font = header_font
+    col.alignment = Alignment(horizontal="center")
+
+# Sort by accuracy
 results.sort(key=lambda x: x["accuracy"])
+
+# Color rules
+green_fill = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
+red_fill = PatternFill(start_color="FFC7CE", end_color="FFC7CE", fill_type="solid")
+yellow_fill = PatternFill(start_color="FFEB9C", end_color="FFEB9C", fill_type="solid")
+
+# Add data
 for r in results:
-    ws.append([
+    row = [
         r["query"],
         r["accuracy"],
         r["recall"],
         r["grounding"],
         r["hallucination"],
         round(r["latency"], 2)
-    ])
+    ]
+    ws.append(row)
+
+    current_row = ws.max_row
+
+    # Accuracy coloring
+    acc_cell = ws.cell(row=current_row, column=2)
+    if r["accuracy"] >= 0.7:
+        acc_cell.fill = green_fill
+    elif r["accuracy"] >= 0.4:
+        acc_cell.fill = yellow_fill
+    else:
+        acc_cell.fill = red_fill
+
+    # Grounding coloring
+    ground_cell = ws.cell(row=current_row, column=4)
+    if r["grounding"] >= 0.7:
+        ground_cell.fill = green_fill
+    else:
+        ground_cell.fill = red_fill
+
+    # Hallucination coloring
+    hall_cell = ws.cell(row=current_row, column=5)
+    if r["hallucination"] == "PASS":
+        hall_cell.fill = green_fill
+    else:
+        hall_cell.fill = red_fill
+
+# Summary
 avg_acc = round(total_acc / valid_tests, 2)
 avg_recall = round(total_recall / valid_tests, 2)
 avg_ground = round(total_ground / valid_tests, 2)
 avg_latency = round(sum(latencies) / valid_tests, 2)
+
 ws.append([])
 ws.append([
     "FINAL SUMMARY",
@@ -103,5 +148,37 @@ ws.append([
     "-",
     avg_latency
 ])
+
+summary_row = ws.max_row
+
+for col in range(1, 7):
+    cell = ws.cell(row=summary_row, column=col)
+    cell.font = Font(bold=True)
+    cell.fill = PatternFill(start_color="D9E1F2", end_color="D9E1F2", fill_type="solid")
+
+# Insight row
+ws.append([
+    "INSIGHT",
+    "Strong Retrieval",
+    "High Recall",
+    "Good Grounding",
+    "",
+    "Latency Acceptable"
+])
+
+# Auto column width
+for column in ws.columns:
+    max_length = 0
+    col_letter = column[0].column_letter
+    for cell in column:
+        try:
+            if cell.value:
+                max_length = max(max_length, len(str(cell.value)))
+        except:
+            pass
+    ws.column_dimensions[col_letter].width = min(max_length + 2, 50)
+
+# Save
 wb.save("tests/report.xlsx")
-print("Excel report saved to tests/report.xlsx")
+
+print("Professional Excel report saved to tests/report.xlsx")
